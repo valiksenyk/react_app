@@ -1,5 +1,5 @@
 import config from '../config';
-import { authHeader } from '../helpers';
+import { authHeader, currentUser } from '../helpers';
 
 export const userService = {
     login,
@@ -7,6 +7,7 @@ export const userService = {
     register,
     getAll,
     getById,
+    getCurrent,
     update,
     delete: _delete
 };
@@ -51,6 +52,15 @@ function getById(id) {
     return fetch(`${config.apiUrl}/users/${id}`, requestOptions).then(handleResponse);
 }
 
+function getCurrent() {
+    const requestOptions = {
+        method: 'GET',
+        headers: authHeader()
+    };
+
+    return fetch(`${config.apiUrl}/user`, requestOptions).then(handleResponse);
+}
+
 function register(user) {
     const requestOptions = {
         method: 'POST',
@@ -68,7 +78,7 @@ function update(user) {
         body: JSON.stringify(user)
     };
 
-    return fetch(`${config.apiUrl}/users/${user.id}`, requestOptions).then(handleResponse);;
+    return fetch(`${config.apiUrl}/users/${user.id}`, requestOptions).then(handleResponse);
 }
 
 // prefixed function name with underscore because delete is a reserved word in javascript

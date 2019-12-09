@@ -8,35 +8,37 @@ import {PrivateRoute} from '../components';
 import {HomePage} from '../pages/homePage/homePage';
 import {LoginPage} from '../pages/loginPage/loginPage';
 import {RegisterPage} from '../pages/registerPage/registerPage';
-import Grid from "@material-ui/core/Grid";
+import SnackbarComponent from "../components/snackbar";
+import './App.scss';
 
 class App extends React.Component {
     constructor(props) {
         super(props);
 
         history.listen((location, action) => {
-            // clear alert on location change
             this.props.clearAlerts();
         });
     }
+
+    closeAlerts = () => {
+        this.props.clearAlerts();
+    };
 
     render() {
         const {alert} = this.props;
         return (
             <div className="container">
-                {/*<Grid xs="12">*/}
-                    {alert.message &&
-                    <div className={`alert ${alert.type}`}>{alert.message}</div>
-                    }
-                    <Router history={history}>
-                        <Switch>
-                            <PrivateRoute exact path="/" component={HomePage}/>
-                            <Route path="/login" component={LoginPage}/>
-                            <Route path="/register" component={RegisterPage}/>
-                            <Redirect from="*" to="/"/>
-                        </Switch>
-                    </Router>
-                {/*</Grid>*/}
+                <SnackbarComponent open={!!alert.message}
+                                   message={alert.message}
+                                   close={this.closeAlerts}/>
+                <Router history={history}>
+                    <Switch>
+                        <PrivateRoute exact path="/" component={HomePage}/>
+                        <Route path="/login" component={LoginPage}/>
+                        <Route path="/register" component={RegisterPage}/>
+                        <Redirect from="*" to="/"/>
+                    </Switch>
+                </Router>
             </div>
         );
     }
