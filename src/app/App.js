@@ -9,6 +9,7 @@ import {HomePage} from '../pages/homePage/homePage';
 import {LoginPage} from '../pages/loginPage/loginPage';
 import {RegisterPage} from '../pages/registerPage/registerPage';
 import SnackbarComponent from "../components/snackbar";
+import AppRouter from "../router/router"
 import './App.scss';
 
 class App extends React.Component {
@@ -33,7 +34,7 @@ class App extends React.Component {
                                    close={this.closeAlerts}/>
                 <Router history={history}>
                     <Switch>
-                        <PrivateRoute exact path="/" component={HomePage}/>
+                        <PrivateRoute path="/" component={AppRouter}/>
                         <Route path="/login" component={LoginPage}/>
                         <Route path="/register" component={RegisterPage}/>
                         <Redirect from="*" to="/"/>

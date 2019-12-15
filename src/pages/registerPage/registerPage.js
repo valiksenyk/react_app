@@ -18,7 +18,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 
 const StyledContainer = styled(Container)`
     position: relative;
-    margin-top: 200px;
+    margin-top: 100px;
     background: #cccccc36;
     padding: 40px;
     border-radius: 10px;
