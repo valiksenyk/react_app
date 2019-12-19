@@ -1,8 +1,46 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-
 import { userActions } from '../../actions';
+import styled, { css } from 'styled-components'
+
+//Material
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import TextField from '@material-ui/core/TextField';
+import Link from '@material-ui/core/Link';
+import Grid from '@material-ui/core/Grid';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
+import CircularProgress from "@material-ui/core/CircularProgress";
+
+const StyledContainer = styled(Container)`
+    position: relative;
+    margin-top: 100px;
+    background: #cccccc36;
+    padding: 40px;
+    border-radius: 10px;
+`;
+
+const StyledLink = styled(Link)`
+    position: absolute;
+    bottom: 15px;
+    right: 25px;
+`;
+
+const FormHead = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+`;
+
+const Progress = styled(CircularProgress)`
+    margin-left: 20px;
+`;
 
 class RegisterPage extends React.Component {
     constructor(props) {
@@ -18,6 +56,10 @@ class RegisterPage extends React.Component {
             submitted: false
         };
     }
+
+    LoginLink = React.forwardRef(((props, ref) => (
+        <RouterLink innerRef={ref} to="/login" {...props} />
+    )));
 
     handleChange = event => {
         const { name, value } = event.target;
@@ -43,47 +85,102 @@ class RegisterPage extends React.Component {
     render() {
         const { registering  } = this.props;
         const { user, submitted } = this.state;
+        const classes = {};
         return (
-            <div className="col-md-6 col-md-offset-3">
-                <h2>Register</h2>
-                <form name="form" onSubmit={this.handleSubmit}>
-                    <div className={'form-group' + (submitted && !user.firstName ? ' has-error' : '')}>
-                        <label htmlFor="firstName">First Name</label>
-                        <input type="text" className="form-control" name="firstName" value={user.firstName} onChange={this.handleChange} />
-                        {submitted && !user.firstName &&
-                        <div className="help-block">First Name is required</div>
-                        }
-                    </div>
-                    <div className={'form-group' + (submitted && !user.lastName ? ' has-error' : '')}>
-                        <label htmlFor="lastName">Last Name</label>
-                        <input type="text" className="form-control" name="lastName" value={user.lastName} onChange={this.handleChange} />
-                        {submitted && !user.lastName &&
-                        <div className="help-block">Last Name is required</div>
-                        }
-                    </div>
-                    <div className={'form-group' + (submitted && !user.username ? ' has-error' : '')}>
-                        <label htmlFor="username">Username</label>
-                        <input type="text" className="form-control" name="username" value={user.username} onChange={this.handleChange} />
-                        {submitted && !user.username &&
-                        <div className="help-block">Username is required</div>
-                        }
-                    </div>
-                    <div className={'form-group' + (submitted && !user.password ? ' has-error' : '')}>
-                        <label htmlFor="password">Password</label>
-                        <input type="password" className="form-control" name="password" value={user.password} onChange={this.handleChange} />
-                        {submitted && !user.password &&
-                        <div className="help-block">Password is required</div>
-                        }
-                    </div>
-                    <div className="form-group">
-                        <button className="btn btn-primary">Register</button>
+            <StyledContainer component="main" maxWidth="xs">
+                <CssBaseline/>
+                <div>
+                    <FormHead>
+                        <Avatar>
+                            <LockOutlinedIcon/>
+                        </Avatar>
+                        <Typography component="h1" variant="h5">
+                            Sign up
+                        </Typography>
+                    </FormHead>
+                    <form onSubmit={this.handleSubmit} noValidate>
+                        <Grid container spacing={2}>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    autoComplete="fname"
+                                    name="firstName"
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    id="firstName"
+                                    label="First Name"
+                                    autoFocus
+                                    value={user.firstName}
+                                    onChange={this.handleChange}
+                                    error={submitted && !user.firstName}
+                                    helperText={submitted && !user.firstName ? 'First name is required!' : ' '}
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    id="lastName"
+                                    label="Last Name"
+                                    name="lastName"
+                                    autoComplete="lname"
+                                    value={user.lastName}
+                                    onChange={this.handleChange}
+                                    error={submitted && !user.lastName}
+                                    helperText={submitted && !user.lastName ? 'Last name is required!' : ' '}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    id="username"
+                                    label="Username"
+                                    name="username"
+                                    autoComplete="username"
+                                    value={user.username}
+                                    onChange={this.handleChange}
+                                    error={submitted && !user.username}
+                                    helperText={submitted && !user.username ? 'Username is required!' : ' '}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    name="password"
+                                    label="Password"
+                                    type="password"
+                                    id="password"
+                                    autoComplete="current-password"
+                                    value={user.password}
+                                    onChange={this.handleChange}
+                                    error={submitted && !user.password}
+                                    helperText={submitted && !user.password ? 'Password is required!' : ' '}
+                                />
+                            </Grid>
+                        </Grid>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={this.handleSubmit}
+                        >
+                            Sign Up
+                        </Button>
                         {registering &&
-                        <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                        <Progress size="20px" />
                         }
-                        <Link to="/login" className="btn btn-link">Cancel</Link>
-                    </div>
-                </form>
-            </div>
+                        <Grid container justify="flex-end">
+                            <Grid item>
+                                <StyledLink component={this.LoginLink}>Already have Account</StyledLink>
+                            </Grid>
+                        </Grid>
+                    </form>
+                </div>
+            </StyledContainer>
         );
     }
 }
