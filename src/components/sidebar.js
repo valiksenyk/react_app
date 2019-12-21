@@ -74,7 +74,7 @@ export const Sidebar = (props) => {
             </div>
             <Divider />
             <List>
-                {['Computations', 'Chart', 'Table'].map((text, index) => (
+                {['PageSpeed', 'Chart', 'Table'].map((text, index) => (
                     <ListItem button key={text}>
                         <ListItemIcon>
                             {index === 0 && <Speed />}

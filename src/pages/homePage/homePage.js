@@ -53,7 +53,7 @@ function mapState(state) {
 const actionCreators = {
     getUsers: userActions.getAll,
     deleteUser: userActions.delete
-}
+};
 
 const connectedHomePage = connect(mapState, actionCreators)(HomePage);
 export { connectedHomePage as HomePage };

@@ -3,7 +3,8 @@ import {Route, Switch, Redirect} from 'react-router-dom';
 import {NavigationComponent} from "../components/navigationComponents";
 import { makeStyles } from '@material-ui/core/styles';
 
-import {HomePage} from "../pages/homePage/homePage";
+import {HomePage} from '../pages/homePage/homePage';
+import {PageSpeed} from '../pages/page-speed/page-speed';
 
 
 const useStyles = makeStyles(theme => ({
@@ -28,7 +29,7 @@ const AppRouter = () => {
     return (
     <div style={{display: 'flex'}}>
         <NavigationComponent/>
-        <main className={classes.content}>
+        <main className={classes.content} style={{background: 'none'}}>
             <div className={classes.toolbar} />
             <Switch>
                 <Route
@@ -44,6 +45,7 @@ const AppRouter = () => {
                     path='/page-speed'
                     onUpdate={() => window.scrollTo(0, 0)}
                     render={props => {
+                        return <PageSpeed {...props} />
                     }}
                 />
                 <Route
