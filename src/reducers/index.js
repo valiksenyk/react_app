@@ -5,13 +5,15 @@ import {registration} from './registration.reducer';
 import {authentication} from './auth.reducer';
 import {users} from './users.reducer';
 import {user} from './user.reducer'
+import {pageSpeed} from "./page-speed.reducer";
 
 const rootReducer = combineReducers({
     authentication,
     registration,
     users,
     user,
-    alert
+    alert,
+    pageSpeed
 });
 
 export default rootReducer;

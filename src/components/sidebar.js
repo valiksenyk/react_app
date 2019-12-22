@@ -1,20 +1,17 @@
 import React from 'react';
 import clsx from 'clsx';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import {makeStyles, useTheme} from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import InsertChart from '@material-ui/icons/InsertChart';
-import FormatListBulleted from '@material-ui/icons/FormatListBulleted'
-import Speed from '@material-ui/icons/Speed'
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import {Link} from 'react-router-dom';
+import {routes} from '../router/routes';
 
 const drawerWidth = 240;
 
@@ -69,23 +66,23 @@ export const Sidebar = (props) => {
         >
             <div className={classes.toolbar}>
                 <IconButton onClick={handleDrawerClose}>
-                    {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+                    {theme.direction === 'rtl' ? <ChevronRightIcon/> : <ChevronLeftIcon/>}
                 </IconButton>
             </div>
-            <Divider />
+            <Divider/>
             <List>
-                {['Computations', 'Chart', 'Table'].map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemIcon>
-                            {index === 0 && <Speed />}
-                            {index === 1 && <InsertChart />}
-                            {index === 2 && <FormatListBulleted />}
+                {routes.map((route) => (
+                    <Link to={route.to} style={{textDecoration: 'none', color: '#0000008a'}}>
+                        <ListItem button key={route.to}>
+                            <ListItemIcon>
+                                <route.icon/>
                             </ListItemIcon>
-                        <ListItemText primary={text} />
-                    </ListItem>
+                            <ListItemText primary={route.name}/>
+                        </ListItem>
+                    </Link>
                 ))}
             </List>
-            <Divider />
+            <Divider/>
         </Drawer>
     )
 };
