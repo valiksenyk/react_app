@@ -6,14 +6,10 @@ import validator from 'validator'
 
 //Material
 import Button from "@material-ui/core/Button";
-import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField'
 import {Typography} from "@material-ui/core";
-import Link from '@material-ui/core/Link';
-import CssBaseline from "@material-ui/core/CssBaseline";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import {PageSpeedSkeleton} from "../../components";
-import {Performance} from './components/performance';
+import {Shell} from "../../components";
+import {Result} from './components/result';
 
 const StyledContainer = styled.div`
     display: flex;
@@ -95,8 +91,8 @@ class PageSpeed extends React.Component {
                 </FormContainer>
                 {
                     loading ?
-                        <PageSpeedSkeleton/>
-                        : submitted && <Performance {...this.props.pageSpeed}/>
+                        <Shell/>
+                        : (submitted && this.props.pageSpeed.timeToFirstPaint) && <Result {...this.props.pageSpeed}/>
                 }
             </StyledContainer>
         )

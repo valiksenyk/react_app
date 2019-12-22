@@ -1,2 +1,2 @@
 export * from './privateRoute';
-export * from './page-speed-skeleton';
+export * from '../pages/page-speed/components/shell';
