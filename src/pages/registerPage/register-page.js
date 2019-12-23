@@ -85,7 +85,6 @@ class RegisterPage extends React.Component {
     render() {
         const { registering  } = this.props;
         const { user, submitted } = this.state;
-        const classes = {};
         return (
             <StyledContainer component="main" maxWidth="xs">
                 <CssBaseline/>

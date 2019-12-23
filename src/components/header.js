@@ -1,4 +1,6 @@
 import React, {useEffect} from 'react'
+import clsx from 'clsx';
+import { history } from '../helpers/history'
 
 //Material
 import AppBar from '@material-ui/core/AppBar';
@@ -6,14 +8,13 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import Avatar from "@material-ui/core/Avatar";
-import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-
-import {Menu} from '@material-ui/icons';
+import {Menu as MenuIcon} from '@material-ui/icons';
 import {connect} from "react-redux";
 import {userActions} from "../actions";
-import {Link} from "react-router-dom";
 import styled, {css} from 'styled-components';
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
 
 const drawerWidth = 240;
 
@@ -22,7 +23,7 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
     },
     toolbar: {
-        paddingRight: 24, // keep right padding when drawer closed
+        paddingRight: 24,
     },
     toolbarIcon: {
         display: 'flex',
@@ -95,21 +96,34 @@ const FlexGroup = styled.div`
 `;
 
 const Header = (props) => {
-
     useEffect(() => {
         props.getUser();
     }, []);
+
+    const [anchorEl, setAnchorEl] = React.useState(null);
 
     const handleClick = () => {
       props.handleOpen();
     };
 
+    const openMenu = event => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    const logout = () => {
+        setAnchorEl(null);
+        history.push('/login');
+    };
+
     const classes = useStyles();
-    const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
     const user = props.user;
     return (
         <div>
-            <AppBar position="absolute" className={clsx(classes.appBar, props.open && classes.appBarShift)}>
+            <AppBar position="fixed" className={clsx(classes.appBar, props.open && classes.appBarShift)}>
                 <StyledToolbar>
                     <FlexGroup>
                         <IconButton edge="start"
@@ -117,22 +131,30 @@ const Header = (props) => {
                                     aria-label="menu"
                                     onClick={handleClick}
                                     className={clsx(classes.menuButton, props.open && classes.menuButtonHidden)}>
-                            <Menu/>
+                            <MenuIcon/>
                         </IconButton>
                         <Typography variant="h6">
                             News
                         </Typography>
                     </FlexGroup>
-                    {/*<Link to="/login">Logout</Link>*/}
                     <div>
                         {user &&
-                        <User>
+                        <User aria-controls="simple-menu" aria-haspopup="true" onClick={openMenu}>
                             <Typography>{user.firstName} {user.lastName}</Typography>
                             <Avatar variant="circle" className={classes.square}>
                                 {user.firstName.slice(0, 1)}
                             </Avatar>
                         </User>
                         }
+                        <Menu
+                            id="simple-menu"
+                            anchorEl={anchorEl}
+                            keepMounted
+                            open={Boolean(anchorEl)}
+                            onClose={handleClose}
+                        >
+                            <MenuItem onClick={logout}>Logout</MenuItem>
+                        </Menu>
                     </div>
                 </StyledToolbar>
             </AppBar>
