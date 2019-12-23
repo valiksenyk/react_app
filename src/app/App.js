@@ -6,8 +6,8 @@ import {history} from '../helpers';
 import {alertActions} from '../actions';
 import {PrivateRoute} from '../components';
 import {HomePage} from '../pages/homePage/homePage';
-import {LoginPage} from '../pages/loginPage/loginPage';
-import {RegisterPage} from '../pages/registerPage/registerPage';
+import {LoginPage} from '../pages/loginPage/login-page';
+import {RegisterPage} from '../pages/registerPage/register-page';
 import SnackbarComponent from "../components/snackbar";
 import AppRouter from "../router/router"
 import './App.scss';
@@ -34,10 +34,10 @@ class App extends React.Component {
                                    close={this.closeAlerts}/>
                 <Router history={history}>
                     <Switch>
-                        <PrivateRoute path="/" component={AppRouter}/>
+                        <PrivateRoute path="/dashboard" component={AppRouter}/>
                         <Route path="/login" component={LoginPage}/>
                         <Route path="/register" component={RegisterPage}/>
-                        <Redirect from="*" to="/"/>
+                        <Redirect from="/" to="dashboard"/>
                     </Switch>
                 </Router>
             </div>

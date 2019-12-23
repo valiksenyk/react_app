@@ -4,23 +4,26 @@ import FormatListBulleted from '@material-ui/icons/FormatListBulleted'
 import Speed from '@material-ui/icons/Speed'
 import {TablePage} from "../pages/tablePage/table-page";
 import {HomePage} from "../pages/homePage/homePage";
+import config from "../config";
+
+const baseRoute = config.baseRoute;
 
 export const routes = [
     {
         name: 'PageSpeed',
-        to: '/page-speed',
+        to: `/${baseRoute}/page-speed`,
         component: PageSpeed,
         icon: Speed
     },
     {
         name: 'Tables',
-        to: '/tables',
+        to: `/${baseRoute}/tables`,
         component: TablePage,
         icon: FormatListBulleted
     },
     {
         name: 'Home',
-        to: '/home',
+        to: `/${baseRoute}/home`,
         component: HomePage,
         icon: InsertChart
     },

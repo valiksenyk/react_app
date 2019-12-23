@@ -35,7 +35,7 @@ const AppRouter = () => {
             <Switch>
                 {routes.map(route => (
                     <Route
-                        exact
+                        key={route.to}
                         path={route.to}
                         onUpdate={() => window.scrollTo(0, 0)}
                         render={props => {
@@ -44,7 +44,7 @@ const AppRouter = () => {
                     />
                 ))
                 }
-                <Redirect from="/" to="/page-speed"/>
+                <Redirect from="/dashboard" to="/dashboard/page-speed"/>
             </Switch>
         </main>
     </div>
