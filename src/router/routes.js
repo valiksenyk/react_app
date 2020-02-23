@@ -2,7 +2,7 @@ import {PageSpeed} from "../pages/page-speed/page-speed";
 import InsertChart from '@material-ui/icons/InsertChart';
 import FormatListBulleted from '@material-ui/icons/FormatListBulleted'
 import Speed from '@material-ui/icons/Speed'
-import {TablePage} from "../pages/tablePage/table-page";
+import {SitesList} from "../pages/sitesList/sites-list";
 import {HomePage} from "../pages/homePage/homePage";
 import config from "../config";
 
@@ -16,9 +16,9 @@ export const routes = [
         icon: Speed
     },
     {
-        name: 'Tables',
-        to: `/${baseRoute}/tables`,
-        component: TablePage,
+        name: 'Sites List',
+        to: `/${baseRoute}/sites-list`,
+        component: SitesList,
         icon: FormatListBulleted
     },
     {

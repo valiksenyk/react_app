@@ -50,7 +50,7 @@ class RegisterPage extends React.Component {
             user: {
                 firstName: '',
                 lastName: '',
-                username: '',
+                email: '',
                 password: ''
             },
             submitted: false
@@ -77,7 +77,7 @@ class RegisterPage extends React.Component {
 
         this.setState({ submitted: true });
         const { user } = this.state;
-        if (user.firstName && user.lastName && user.username && user.password) {
+        if (user.firstName && user.lastName && user.email && user.password) {
             this.props.register(user);
         }
     };
@@ -135,14 +135,14 @@ class RegisterPage extends React.Component {
                                     variant="outlined"
                                     required
                                     fullWidth
-                                    id="username"
-                                    label="Username"
-                                    name="username"
-                                    autoComplete="username"
-                                    value={user.username}
+                                    id="email"
+                                    label="Email"
+                                    name="email"
+                                    autoComplete="email"
+                                    value={user.email}
                                     onChange={this.handleChange}
-                                    error={submitted && !user.username}
-                                    helperText={submitted && !user.username ? 'Username is required!' : ' '}
+                                    error={submitted && !user.email}
+                                    helperText={submitted && !user.email ? 'Email is required!' : ' '}
                                 />
                             </Grid>
                             <Grid item xs={12}>

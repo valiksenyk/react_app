@@ -1,5 +1,6 @@
 import {googleService} from "../services/google.service";
 import {pageSpeedConstants} from "../constants";
+import {sitesService} from "../services";
 
 export const pageSpeed = {
     getPageSpeed
@@ -11,7 +12,10 @@ function getPageSpeed(url) {
 
         googleService.pageSpeedTest(url)
             .then(
-                data => dispatch(success(data)),
+                data => {
+                    dispatch(success(data));
+                    sitesService.addSite(data);
+                },
                 error => dispatch(failure(error.toString()))
             );
     };

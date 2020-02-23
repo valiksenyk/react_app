@@ -41,7 +41,7 @@ class LoginPage extends React.Component {
         this.props.logout();
 
         this.state = {
-            username: '',
+            email: '',
             password: '',
             submitted: false
         };
@@ -60,15 +60,15 @@ class LoginPage extends React.Component {
         e.preventDefault();
 
         this.setState({ submitted: true });
-        const { username, password } = this.state;
-        if (username && password) {
-            this.props.login(username, password);
+        const { email, password } = this.state;
+        if (email && password) {
+            this.props.login(email, password);
         }
     };
 
     render() {
         const { loggingIn } = this.props;
-        const { username, password, submitted } = this.state;
+        const { email, password, submitted } = this.state;
         return (
             <StyledContainer maxWidth="xs">
                 <CssBaseline/>
@@ -77,17 +77,17 @@ class LoginPage extends React.Component {
                         Login
                     </Typography>
                     <form name="form" onSubmit={this.handleSubmit} style={{width: '100%'}}>
-                        <div className={'form-group' + (submitted && !username ? ' has-error' : '')}>
+                        <div className={'form-group' + (submitted && !email ? ' has-error' : '')}>
                             <TextField type="text"
-                                       name="username"
-                                       label="Login"
+                                       name="email"
+                                       label="Email"
                                        fullWidth
                                        margin="normal"
                                        variant="outlined"
-                                       value={username}
+                                       value={email}
                                        onChange={this.handleChange}
-                                       error={submitted && !username}
-                                       helperText={submitted && !username ? 'Username is required!' : ' '}/>
+                                       error={submitted && !email}
+                                       helperText={submitted && !email ? 'Email is required!' : ' '}/>
                         </div>
                         <div className={'form-group' + (submitted && !password ? ' has-error' : '')}>
                             <TextField value={password}

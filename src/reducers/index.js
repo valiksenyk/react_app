@@ -5,7 +5,8 @@ import {registration} from './registration.reducer';
 import {authentication} from './auth.reducer';
 import {users} from './users.reducer';
 import {user} from './user.reducer'
-import {pageSpeed} from "./page-speed.reducer";
+import {pageSpeed} from './page-speed.reducer';
+import {sitesList} from './sites-list.reducer';
 
 const rootReducer = combineReducers({
     authentication,
@@ -13,7 +14,8 @@ const rootReducer = combineReducers({
     users,
     user,
     alert,
-    pageSpeed
+    pageSpeed,
+    sitesList
 });
 
 export default rootReducer;

@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 import { store } from './helpers';
 
 import { configureFakeBackend } from './helpers/fake-backend'
-configureFakeBackend(); // modify fetch method
+// configureFakeBackend(); // modify fetch method
 
 ReactDOM.render(
     <Provider store={store}>

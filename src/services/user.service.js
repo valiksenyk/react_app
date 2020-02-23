@@ -12,25 +12,26 @@ export const userService = {
     delete: _delete
 };
 
-function login(username, password) {
+function login(email, password) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
+        body: JSON.stringify({ email, password })
     };
 
-    return fetch(`${config.apiUrl}/users/authenticate`, requestOptions)
+    return fetch(`${config.apiUrl}/user/login`, requestOptions)
         .then(handleResponse)
-        .then(user => {
+        .then(res => {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem('user', JSON.stringify(user));
+            localStorage.setItem('token', JSON.stringify(res.token));
 
-            return user;
+            return res.message;
         });
 }
 
 function logout() {
     // remove user from local storage to log user out
+    localStorage.removeItem('token');
     localStorage.removeItem('user');
 }
 
@@ -58,7 +59,7 @@ function getCurrent() {
         headers: authHeader()
     };
 
-    return fetch(`${config.apiUrl}/user`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiUrl}/user/current`, requestOptions).then(handleResponse, handleResponse);
 }
 
 function register(user) {
@@ -68,7 +69,7 @@ function register(user) {
         body: JSON.stringify(user)
     };
 
-    return fetch(`${config.apiUrl}/users/register`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiUrl}/user/signup`, requestOptions).then(handleResponse);
 }
 
 function update(user) {
