@@ -14,7 +14,7 @@ function getPageSpeed(url) {
             .then(
                 data => {
                     dispatch(success(data));
-                    sitesService.addSite(data);
+                    data && sitesService.addSite(data);
                 },
                 error => dispatch(failure(error.toString()))
             );

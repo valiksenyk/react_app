@@ -18,6 +18,6 @@ function getSites() {
     };
 
     function request() { return { type: sitesListConstants.SITES_LIST_REQUEST } }
-    function success(sites) { return { type: sitesListConstants.SITES_LIST_SUCCESS, sites } }
+    function success(payload) { return { type: sitesListConstants.SITES_LIST_SUCCESS, payload } }
     function failure(error) { return { type: sitesListConstants.SITES_LIST_FAILURE, error } }
 }

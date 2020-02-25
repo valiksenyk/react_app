@@ -64,7 +64,6 @@ class PageSpeed extends React.Component {
     render() {
         const {url, submitted, valid} = this.state;
         const {loading} = this.props.pageSpeed;
-        console.log(this.props);
         return (
             <StyledContainer>
                 <FormContainer>

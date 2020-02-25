@@ -134,7 +134,7 @@ const Header = (props) => {
                             <MenuIcon/>
                         </IconButton>
                         <Typography variant="h6">
-                            News
+                            Site speed meter
                         </Typography>
                     </FlexGroup>
                     <div>
